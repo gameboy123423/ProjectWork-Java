@@ -1,0 +1,25 @@
+<component name="libraryTable">
+  <library name="JavaFX">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/openjfx-17.0.12_windows-x64_bin-sdk/javafx-sdk-17.0.12/lib/javafx-swt.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/openjfx-17.0.12_windows-x64_bin-sdk/javafx-sdk-17.0.12/lib/javafx.base.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/openjfx-17.0.12_windows-x64_bin-sdk/javafx-sdk-17.0.12/lib/javafx.controls.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/openjfx-17.0.12_windows-x64_bin-sdk/javafx-sdk-17.0.12/lib/javafx.fxml.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/openjfx-17.0.12_windows-x64_bin-sdk/javafx-sdk-17.0.12/lib/javafx.graphics.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/openjfx-17.0.12_windows-x64_bin-sdk/javafx-sdk-17.0.12/lib/javafx.media.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/openjfx-17.0.12_windows-x64_bin-sdk/javafx-sdk-17.0.12/lib/javafx.swing.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/openjfx-17.0.12_windows-x64_bin-sdk/javafx-sdk-17.0.12/lib/javafx.web.jar!/" />
+      <root url="file://$PROJECT_DIR$/.." />
+      <root url="file://$USER_HOME$/Downloads/openjfx-17.0.12_windows-x64_bin-sdk/javafx-sdk-17.0.12/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../Java mod/build/tmp/.cache/expanded/zip_e38c7b1572572a9143f4c4d90e354b25" />
+      <root url="file://$PROJECT_DIR$/../Java mod/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../ProjectForTSIS/src/main/java" />
+      <root url="file://$PROJECT_DIR$/src" />
+      <root url="file://$PROJECT_DIR$/../demo/src/main/java" />
+    </SOURCES>
+    <jarDirectory url="file://$USER_HOME$/Downloads/openjfx-17.0.12_windows-x64_bin-sdk/javafx-sdk-17.0.12/lib" recursive="false" />
+  </library>
+</component>

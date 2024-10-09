@@ -1,39 +1,69 @@
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class MainMenu extends Application {
+public class MainMenu extends JFrame {
+    public MainMenu() {
+        setTitle("Главное меню");
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
 
-    @Override
-    public void start(Stage primaryStage) {
-        // Создание кнопок
-        Button createCheckButton = new Button("Создать чек");
-        Button showAllButton = new Button("Показать всё");
-        Button changesButton = new Button("Изменения");
+        // Кнопки главного меню
+        JButton createCheckButton = new JButton("Создать чек");
+        JButton changesButton = new JButton("Изменения");
+        JButton showAllButton = new JButton("Показать всё");
+        JButton salesDayButton = new JButton("Продажи за день");
+        JButton salesWeekButton = new JButton("Продажи за неделю");
+        JButton salesMonthButton = new JButton("Продажи за месяц");
 
-        // Поле для вывода данных
-        Label outputLabel = new Label();
+        createCheckButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new CheckCreationWindow().setVisible(true);
+            }
+        });
 
-        createCheckButton.setOnAction(e -> outputLabel.setText("Создаем чек..."));
-        showAllButton.setOnAction(e -> outputLabel.setText("Показываем все товары..."));
-        changesButton.setOnAction(e -> outputLabel.setText("Изменяем данные..."));
+        changesButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new ChangesWindow().setVisible(true);
+            }
+        });
 
-        // Вертикальный контейнер для элементов интерфейса
-        VBox layout = new VBox(10);
-        layout.getChildren().addAll(createCheckButton, showAllButton, changesButton, outputLabel);
+        showAllButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                GoodsDatabase.showAllGoods();
+            }
+        });
 
-        // Создание сцены и запуск
-        Scene scene = new Scene(layout, 300, 200);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Меню управления");
-        primaryStage.show();
-    }
+        salesDayButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                SalesSummary.showSales("day");
+            }
+        });
 
-    public static void main(String[] args) {
-        launch(args);
+        salesWeekButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                SalesSummary.showSales("week");
+            }
+        });
+
+        salesMonthButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                SalesSummary.showSales("month");
+            }
+        });
+
+        // Панель для кнопок
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(6, 1));
+        panel.add(createCheckButton);
+        panel.add(changesButton);
+        panel.add(showAllButton);
+        panel.add(salesDayButton);
+        panel.add(salesWeekButton);
+        panel.add(salesMonthButton);
+
+        add(panel);
     }
 }
