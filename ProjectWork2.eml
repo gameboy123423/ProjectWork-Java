@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component inherit-compiler-output="true" jdk="17" jdk_type="JavaSDK">
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$"/>
+	<levels>
+		<level name="JavaFX" value="project"/>
+		<level name="sqlite-jdbc-3.46.1.3" value="project"/>
+		<level name="TimingFramework-0.55" value="project"/>
+		<level name="postgresql-42.7.4" value="project"/>
+	</levels>
+</component>

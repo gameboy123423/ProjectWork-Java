@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/17"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/sqlite-jdbc-3.46.1.3"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/TimingFramework-0.55"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/postgresql-42.7.4"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/user/Downloads/postgresql-42.7.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/user/Downloads/sqlite-jdbc-3.46.1.3 (1).jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
