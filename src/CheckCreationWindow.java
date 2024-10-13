@@ -8,7 +8,7 @@ public class CheckCreationWindow extends JFrame {
         setSize(400, 200);
         setLocationRelativeTo(null);
 
-        JComboBox<String> goodsComboBox = new JComboBox<>(GoodsDatabase.getGoodsList());
+        JComboBox<String> goodsComboBox = new JComboBox(GoodsDatabase.getGoodsList());
         JTextField amountField = new JTextField(10);
         JButton createCheckButton = new JButton("Создать чек");
 

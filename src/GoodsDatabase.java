@@ -9,17 +9,29 @@ public class GoodsDatabase {
     static {
         try (Connection conn = DriverManager.getConnection(URL);
              Statement stmt = conn.createStatement()) {
-            String createTableSQL = "CREATE TABLE IF NOT EXISTS goods ("
-                    + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + "goods_name TEXT,"
-                    + "amount INTEGER,"
-                    + "price INTEGER"
-                    + ")";
-            stmt.execute(createTableSQL);
+            // Установка режима WAL для избежания блокировок
+            stmt.execute("PRAGMA journal_mode=WAL;");
+
+            // Создание таблицы товаров
+            String createGoodsTableSQL = "CREATE TABLE IF NOT EXISTS goods (" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "goods_name TEXT," +
+                    "amount INTEGER," +
+                    "price INTEGER)";
+            stmt.execute(createGoodsTableSQL);
+
+            // Создание таблицы продаж
+            String createSalesTableSQL = "CREATE TABLE IF NOT EXISTS sales (" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "goods_name TEXT," +
+                    "amount INTEGER," +
+                    "date TEXT)";
+            stmt.execute(createSalesTableSQL);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 
     // Метод для получения списка товаров
     public static String[] getGoodsList() {
@@ -47,14 +59,15 @@ public class GoodsDatabase {
                 int currentAmount = rs.getInt("amount");
                 int price = rs.getInt("price");
                 if (currentAmount >= amount) {
+                    // Обновляем количество товара на складе
                     try (PreparedStatement updateStmt = conn.prepareStatement("UPDATE goods SET amount = ? WHERE goods_name = ?")) {
                         updateStmt.setInt(1, currentAmount - amount);
                         updateStmt.setString(2, goodsName);
                         updateStmt.executeUpdate();
                     }
 
-                    // Записываем данные о продаже в файл
-                    SalesFileHandler.writeSale(goodsName, amount, price);
+                    // Записываем данные о продаже в базу данных
+                    SalesSummary.addSale(goodsName, amount, price);
                 } else {
                     JOptionPane.showMessageDialog(null, "Недостаточно товара на складе!");
                 }
@@ -65,6 +78,7 @@ public class GoodsDatabase {
             e.printStackTrace();
         }
     }
+
 
     // Методы для добавления, удаления и обновления товаров
     public static void addGood(String goodsName) {
