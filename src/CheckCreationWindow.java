@@ -8,15 +8,29 @@ public class CheckCreationWindow extends JFrame {
         setSize(400, 200);
         setLocationRelativeTo(null);
 
-        JComboBox<String> goodsComboBox = new JComboBox(GoodsDatabase.getGoodsList());
+        JComboBox<String> goodsComboBox = new JComboBox<>(GoodsDatabase.getGoodsList());
         JTextField amountField = new JTextField(10);
         JButton createCheckButton = new JButton("Создать чек");
+        JButton backButton = new JButton("Назад"); // Кнопка "Назад"
 
         createCheckButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String selectedGood = (String) goodsComboBox.getSelectedItem();
                 int amount = Integer.parseInt(amountField.getText());
-                GoodsDatabase.processGoodAmount(selectedGood, amount);
+
+                // Проверяем наличие товара и создаём чек
+                if (GoodsDatabase.processGoodAmount(selectedGood, amount)) {
+                    JOptionPane.showMessageDialog(null, "Чек успешно создан!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Недостаточно товара на складе!", "Ошибка", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        // Действие для кнопки "Назад"
+        backButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Закрыть текущее окно
             }
         });
 
@@ -26,6 +40,7 @@ public class CheckCreationWindow extends JFrame {
         panel.add(new JLabel("Количество:"));
         panel.add(amountField);
         panel.add(createCheckButton);
+        panel.add(backButton); // Добавляем кнопку "Назад" на панель
 
         add(panel);
     }

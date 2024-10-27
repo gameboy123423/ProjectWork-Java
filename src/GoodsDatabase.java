@@ -14,24 +14,18 @@ public class GoodsDatabase {
 
             // Создание таблицы товаров
             String createGoodsTableSQL = "CREATE TABLE IF NOT EXISTS goods (" +
-                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "goods_name TEXT," +
-                    "amount INTEGER," +
-                    "price INTEGER)";
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT," + // Добавление колонки цены продажи
+                    "goods_name TEXT," + // Добавление колонки название товара
+                    "amount INTEGER," + // Добавление колонки количество товара
+                    "price INTEGER," + // Добавление колонки цена товара
+                    "sold_amount INTEGER," + // Добавление колонки количество продаж
+                    "sold_price INTEGER," + // Добавление колонки цены продажи
+                    "date TEXT)"; // Добовление колонки дата продажи
             stmt.execute(createGoodsTableSQL);
-
-            // Создание таблицы продаж
-            String createSalesTableSQL = "CREATE TABLE IF NOT EXISTS sales (" +
-                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "goods_name TEXT," +
-                    "amount INTEGER," +
-                    "date TEXT)";
-            stmt.execute(createSalesTableSQL);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
 
     // Метод для получения списка товаров
     public static String[] getGoodsList() {
@@ -48,8 +42,9 @@ public class GoodsDatabase {
         return goods.toArray(new String[0]);
     }
 
-    // Обработка изменения количества товара
-    public static void processGoodAmount(String goodsName, int amount) {
+    // Обработка изменения количества товара и добавление продажи
+    // Обработка изменения количества товара и добавление продажи
+    public static boolean processGoodAmount(String goodsName, int amount) {
         try (Connection conn = DriverManager.getConnection(URL);
              PreparedStatement pstmt = conn.prepareStatement("SELECT amount, price FROM goods WHERE goods_name = ?")) {
             pstmt.setString(1, goodsName);
@@ -59,21 +54,29 @@ public class GoodsDatabase {
                 int currentAmount = rs.getInt("amount");
                 int price = rs.getInt("price");
                 if (currentAmount >= amount) {
-                    // Обновляем количество товара на складе
                     try (PreparedStatement updateStmt = conn.prepareStatement("UPDATE goods SET amount = ? WHERE goods_name = ?")) {
                         updateStmt.setInt(1, currentAmount - amount);
                         updateStmt.setString(2, goodsName);
                         updateStmt.executeUpdate();
                     }
-
-                    // Записываем данные о продаже в базу данных
                     SalesSummary.addSale(goodsName, amount, price);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Недостаточно товара на складе!");
+                    return true; // Успешное создание чека
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "Товар не найден!");
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false; // Недостаточно товара
+    }
+
+    //Метод для добавления определенного количество к товару
+    public static void addQuantityToGood(String goodsName, int additionalAmount) {
+        try (Connection conn = DriverManager.getConnection(URL);
+             PreparedStatement pstmt = conn.prepareStatement("UPDATE goods SET amount = amount + ? WHERE goods_name = ?")) {
+            pstmt.setInt(1, additionalAmount);
+            pstmt.setString(2, goodsName);
+            pstmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Количество товара обновлено!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -81,16 +84,19 @@ public class GoodsDatabase {
 
 
     // Методы для добавления, удаления и обновления товаров
-    public static void addGood(String goodsName) {
+    public static void addNewGood(String goodsName, int price, int amount) {
         try (Connection conn = DriverManager.getConnection(URL);
-             PreparedStatement pstmt = conn.prepareStatement("INSERT INTO goods (goods_name, amount, price) VALUES (?, 0, 0)")) {
+             PreparedStatement pstmt = conn.prepareStatement("INSERT INTO goods (goods_name, price, amount) VALUES (?, ?, ?)")) {
             pstmt.setString(1, goodsName);
+            pstmt.setInt(2, price);
+            pstmt.setInt(3, amount);
             pstmt.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Товар добавлен!");
+            JOptionPane.showMessageDialog(null, "Новый товар добавлен!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 
     public static void deleteGood(String goodsName) {
         try (Connection conn = DriverManager.getConnection(URL);
