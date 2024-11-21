@@ -17,6 +17,7 @@ public class MainMenu extends JFrame {
         JButton salesDayButton = new JButton("Продажи за день");
         JButton salesWeekButton = new JButton("Продажи за неделю");
         JButton salesMonthButton = new JButton("Продажи за месяц");
+        JButton logShowButton = new JButton("Показать изменения");
 
         createCheckButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -42,6 +43,12 @@ public class MainMenu extends JFrame {
             }
         });
 
+        logShowButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new ChangesLogWindow().setVisible(true); // Исправлено
+            }
+        });
+
         salesWeekButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 SalesSummary.showSales("week");
@@ -56,14 +63,16 @@ public class MainMenu extends JFrame {
 
         // Панель для кнопок
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(6, 1));
+        panel.setLayout(new GridLayout(7, 1));
         panel.add(createCheckButton);
         panel.add(changesButton);
         panel.add(showAllButton);
         panel.add(salesDayButton);
         panel.add(salesWeekButton);
         panel.add(salesMonthButton);
+        panel.add(logShowButton);
 
         add(panel);
     }
 }
+//Кнопка которая показывает созданные изменения не работает, как решишь ошибку удали все комменты

@@ -45,3 +45,4 @@ public class CheckCreationWindow extends JFrame {
         add(panel);
     }
 }
+//Кнопка которая показывает созданные изменения не работает, как решишь ошибку удали все комменты

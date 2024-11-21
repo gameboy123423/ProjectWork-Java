@@ -81,3 +81,4 @@ public class SalesSummary {
         JOptionPane.showMessageDialog(null, salesSummary, "Сводка продаж", JOptionPane.INFORMATION_MESSAGE);
     }
 }
+//Кнопка которая показывает созданные изменения не работает, как решишь ошибку удали все комменты

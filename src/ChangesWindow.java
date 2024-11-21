@@ -22,7 +22,7 @@ public class ChangesWindow extends JFrame {
                 String goodName = JOptionPane.showInputDialog("Введите название нового товара:");
                 int price = Integer.parseInt(JOptionPane.showInputDialog("Введите цену товара:"));
                 int amount = Integer.parseInt(JOptionPane.showInputDialog("Введите количество товара:"));
-                GoodsDatabase.addNewGood(goodName, price, amount); // Вызов метода для добавления нового товара
+                GoodsDatabase.addGood(goodName, price, amount); // Вызов метода для добавления нового товара
             }
         });
 
@@ -87,7 +87,9 @@ public class ChangesWindow extends JFrame {
                 dispose(); //Закрыть существующее окно
             }
         });
+
         //Добавление кнопок на экран
+
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(6, 1));
         panel.add(addQuantityButton);
@@ -100,3 +102,4 @@ public class ChangesWindow extends JFrame {
         add(panel);
     }
 }
+//Кнопка которая показывает созданные изменения не работает, как решишь ошибку удали все комменты
