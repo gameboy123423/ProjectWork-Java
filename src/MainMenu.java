@@ -38,8 +38,12 @@ public class MainMenu extends JFrame {
         });
 
         salesDayButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                SalesSummary.showSales("day");
+                String query = "SELECT goods_name, sold_amount, sold_price, date " +
+                        "FROM goods WHERE date(date) = date('now')";
+                SalesSummaryWindow window = new SalesSummaryWindow("день", query);
+                window.setVisible(true);
             }
         });
 
@@ -50,14 +54,22 @@ public class MainMenu extends JFrame {
         });
 
         salesWeekButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                SalesSummary.showSales("week");
+                String query = "SELECT goods_name, sold_amount, sold_price, date " +
+                        "FROM goods WHERE date(date) >= date('now', '-7 days')";
+                SalesSummaryWindow window = new SalesSummaryWindow("неделю", query);
+                window.setVisible(true);
             }
         });
 
         salesMonthButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                SalesSummary.showSales("month");
+                String query = "SELECT goods_name, sold_amount, sold_price, date " +
+                        "FROM goods WHERE strftime('%Y-%m', date) = strftime('%Y-%m', 'now')";
+                SalesSummaryWindow window = new SalesSummaryWindow("месяц", query);
+                window.setVisible(true);
             }
         });
 
